@@ -1,0 +1,30 @@
+{
+  "name": "to-do-backend",
+  "version": "1.0.0",
+  "description": "A simple but well done to do list appliccation",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "migrate": "ts-node src/migrate.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.5",
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.10.9",
+    "nodemon": "^3.0.2"
+  }
+}
