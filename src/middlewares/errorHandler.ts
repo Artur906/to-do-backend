@@ -7,7 +7,6 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ): Response<any, Record<string, any>> | void => {
-  console.log("helooo")
   let error = { ...err };
 
   error.message = err.message;
