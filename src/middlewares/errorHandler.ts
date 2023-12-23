@@ -7,14 +7,11 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ): Response<any, Record<string, any>> | void => {
-  let error = { ...err };
-
-  error.message = err.message;
 
   if (err instanceof AppError) {
     return res
-      .status(error.statusCode)
-      .json({ sucess: false, message: error.message });
+      .status(err.statusCode)
+      .json({ sucess: false, message: err.message });
   }
 
   console.error('Unexpected error:', err);
