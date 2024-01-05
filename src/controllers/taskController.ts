@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as taskService from "../services/taskService";
 import { AppError } from "../utils/AppError";
+import { createTaskDTO } from "../models/Task";
 
 export const getAllTasks = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -21,6 +22,21 @@ export const getTaskById = async (req: Request, res: Response, next: NextFunctio
       throw new AppError("Task not found", 404);
     }
     res.status(200).json(task);
+
+  } catch (error: any) {
+    next(error);
+  }
+}
+
+export const createTask = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const taskBody: createTaskDTO = req.body;
+    const task = await taskService.create(taskBody);
+
+    if (!task) {
+      throw new AppError("Task not found", 404);
+    }
+    res.status(201).json(task);
 
   } catch (error: any) {
     next(error);

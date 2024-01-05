@@ -5,3 +5,4 @@ export const router = Router();
 
 router.get('/tasks', taskController.getAllTasks);
 router.get('/tasks/:taskId', taskController.getTaskById);
+router.post('/tasks', taskController.createTask);
