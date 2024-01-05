@@ -1,27 +1,35 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE IF NOT EXISTS "users" (
-  "id" integer PRIMARY KEY,
+  "id" uuid DEFAULT uuid_generate_v4 (),
   "email" varchar UNIQUE,
   "username" varchar,
-  "password_hash" varchar
+  "password_hash" varchar,
+  PRIMARY KEY ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "tasks" (
-  "id" integer PRIMARY KEY,
-  "user_id" integer,
-  "task_name" varchar,
-  "priority" integer,
-  "completed" bool,
+  "id" uuid DEFAULT uuid_generate_v4 (),
+  "user_id" uuid NOT NULL,
+  "task_name" varchar NOT NULL,
+  "priority" integer NOT NULL,
+  "completed" bool DEFAULT false,
   "due_date" timestamp,
-  "created_at" timestamp
+  "created_at" timestamp,
+  PRIMARY KEY ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "categories" (
-  "id" integer PRIMARY KEY,
-  "name" varchar,
-  "user_id" integer
+  "id" uuid DEFAULT uuid_generate_v4 (),
+  "name" varchar NOT NULL,
+  "user_id" uuid NOT NULL,
+  PRIMARY KEY ("id")
 );
 
-CREATE TABLE IF NOT EXISTS "taskCategories" ("task_id" integer, "category_id" integer);
+CREATE TABLE IF NOT EXISTS "taskCategories" (
+  "task_id" uuid NOT NULL,
+  "category_id" uuid NOT NULL
+);
 
 ALTER TABLE
   "taskCategories"
