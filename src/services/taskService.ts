@@ -15,7 +15,7 @@ export const create = async (task: createTaskDTO): Promise<getTaskDTO | undefine
 
 
 	const keys = Object.keys(task);
-	const values = Object.values(task);
+	const values = Object.values(task).map(item => item.toString());
 
 	// Construct placeholders like $1, $2, $3, ...
 	const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
