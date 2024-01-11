@@ -24,3 +24,10 @@ export const updateUserSchema = z.object({
 });
 
 export type updateUserDTO = z.infer<typeof updateUserSchema>;
+
+export const loginUserSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+export type loginUserDTO = z.infer<typeof loginUserSchema>;
