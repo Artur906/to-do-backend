@@ -11,4 +11,3 @@ export const hash = async (password: string) => {
   }
 }
 
-async () => console.log("hello hash", await hash("my_super pass word"))
