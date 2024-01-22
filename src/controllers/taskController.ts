@@ -5,7 +5,8 @@ import { createTaskDTO, updateTaskDTO } from "../models/Task";
 
 export const getAllTasks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const tasks = await taskService.getAll();
+    const { user_id } = req.body;
+    const tasks = await taskService.getAll(user_id);
     console.log(tasks);
     res.status(200).json(tasks);
   } catch (error: any) {
@@ -16,7 +17,8 @@ export const getAllTasks = async (req: Request, res: Response, next: NextFunctio
 export const getTaskById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { taskId } = req.params;
-    const task = await taskService.getById(taskId);
+    const { user_id } = req.body;
+    const task = await taskService.getById(taskId, user_id);
 
     if (!task) {
       throw new AppError("Task not found", 404);
