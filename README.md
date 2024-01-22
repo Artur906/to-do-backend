@@ -1,2 +1,2 @@
 # to-do-documentation
-A simple but well done to do list appliccation
+Uma simples aplicação de lista de tarefas
