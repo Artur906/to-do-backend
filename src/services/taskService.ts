@@ -2,15 +2,16 @@ import { object } from 'zod';
 import { query } from '../db';
 import { createTaskDTO, getTaskDTO, updateTaskDTO } from '../models/Task';
 
-export const getAll = async (): Promise<getTaskDTO[] | undefined> => {
-	const res = await query('SELECT * FROM tasks');
+export const getAll = async (userId: string): Promise<getTaskDTO[] | undefined> => {
+	const res = await query('SELECT * FROM tasks t WHERE t.user_id = $1', [userId]);
 	return res.rows;
 };
 
 export const getById = async (
-	taskId: string
+	taskId: string,
+	userId: string
 ): Promise<getTaskDTO | undefined> => {
-	const res = await query('SELECT * FROM tasks t WHERE t.id = $1', [taskId]);
+	const res = await query('SELECT * FROM tasks t WHERE t.id = $1 AND t.user_id = $2', [taskId, userId]);
 	return res.rows[0];
 };
 
@@ -55,11 +56,10 @@ export const update = async (
 			? `(${columns}) = (${placeholders})`
 			: `${columns} = ${placeholders}`;
 
-	const queryString = `UPDATE tasks SET ${columnsAndValues} WHERE id = $${keys.length + 1
-		} RETURNING *`;
+	const queryString = `UPDATE tasks t SET ${columnsAndValues} WHERE t.id = $${keys.length + 1
+		} AND t.user_id = $${keys.length + 2} RETURNING *`;
 
-	console.log('query string', queryString);
-	const res = await query(queryString, [...values, taskId]);
+	const res = await query(queryString, [...values, taskId, task.user_id!]);
 
 	return res.rows[0];
 };
