@@ -22,7 +22,6 @@ export const create = async (
 	const keys = Object.keys(task);
 	const values = Object.values(task).map((item) => item.toString());
 
-	console.log("valuees", values)
 	// Construct placeholders like $1, $2, $3, ...
 	const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
 
@@ -48,8 +47,6 @@ export const update = async (
 
 	// Construct the column names like column1, column2, ...
 	const columns = keys.join(', ');
-
-	console.log(columns, placeholders);
 
 	const columnsAndValues =
 		keys.length > 1
