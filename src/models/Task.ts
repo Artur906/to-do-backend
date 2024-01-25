@@ -6,8 +6,15 @@ export const getTaskSchema = z.object({
   task_name: z.string().max(255),
   priority: z.number().min(1).max(3).optional(),
   completed: z.boolean(),
-  created_at: z.string().pipe(z.coerce.date()),
-  due_date: z.string().pipe(z.coerce.date()).optional(),
+  created_at: z
+    .string()
+    .pipe(z.coerce.date())
+    .transform((date) => date.toISOString()),
+  due_date: z
+    .string()
+    .pipe(z.coerce.date())
+    .transform((date) => date.toISOString())
+    .optional(),
 });
 
 export type getTaskDTO = z.infer<typeof getTaskSchema>;
@@ -30,8 +37,13 @@ export const createTaskSchema = z.object({
     .string({
       required_error: 'A data de criação da tarefa é um campo obrigatório',
     })
-    .pipe(z.coerce.date()),
-  due_date: z.string().pipe(z.coerce.date()).optional(),
+    .pipe(z.coerce.date())
+    .transform((date) => date.toISOString()),
+  due_date: z
+    .string()
+    .pipe(z.coerce.date())
+    .transform((date) => date.toISOString())
+    .optional(),
 });
 
 export type createTaskDTO = z.infer<typeof createTaskSchema>;
@@ -41,7 +53,11 @@ export const updateTaskSchema = z.object({
   task_name: z.string().max(255, 'Passou o tamanho máximo').optional(),
   priority: z.number().min(1).max(3).optional(),
   completed: z.boolean().optional(),
-  due_date: z.string().pipe(z.coerce.date()).optional(),
+  due_date: z
+    .string()
+    .pipe(z.coerce.date())
+    .transform((date) => date.toISOString())
+    .optional(),
 });
 
 export type updateTaskDTO = z.infer<typeof updateTaskSchema>;
