@@ -27,7 +27,13 @@ JWT_SECRET_KEY=
 PORT=
 ```
 
-Além disso o banco de dados utilizado foi o  PostgreSQL, portanto, é necessário configurar um banco de dados e, após isso, rodar o seguinte comando: 
+Além disso o banco de dados utilizado foi o  PostgreSQL, portanto, é necessário configurar um banco de dados. Se você tiver o docker instalado pode simplesmente rodar o comando: 
+
+```
+docker compose up -d
+```
+
+Após isso, rodar o seguinte comando: 
 
 ```
 npm migrate
