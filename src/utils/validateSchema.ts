@@ -23,6 +23,8 @@ export const validate = (schema: ZodSchema) => {
       next(new AppError("campos inválidos: " + invalidFields.join(', '), 400))
     }
 
+    req.body = result.data;
+
     return next();
   }
 
