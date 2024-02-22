@@ -12,6 +12,12 @@ export const findByEmail = async (email: string) => {
   return res.rows[0];
 };
 
+export const findById = async (userId: string) => {
+  const res = await query('SELECT * FROM users WHERE id = $1', [userId]);
+
+  return res.rows[0];
+};
+
 export const register = async ({
   email,
   username,
